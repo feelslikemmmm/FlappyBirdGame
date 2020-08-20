@@ -16,6 +16,11 @@ let keys = {};
 //player 생성
 let bird = document.createElement('div');
 let wing = document.createElement('div');
+let player = {
+    x:0, //플레이어 객체의 좌표
+    y:0,
+    speed:2
+};
 
 
 function start(){
@@ -26,6 +31,27 @@ function start(){
     wing.setAttribute('class', 'wing');
     bird.appendChild(wing);
     gameArea.appendChild(bird);
+    player.x = bird.offsetLeft;
+    player.y = bird.offsetTop;
+    window.requestAnimationFrame(playGame);
+}
+
+function playGame(){
+    if(keys.ArrowLeft){
+        player.x -= player.speed;
+    }
+    if(keys.ArrowRight){
+        player.x += player.speed;
+    }
+    if(keys.ArrowUp){
+        player.y -= player.speed;
+    }
+    if(keys.ArrowDown){
+        player.y += player.speed;
+    }
+    bird.style.left = player.x +'px';
+    bird.style.top = player.y +'px';
+    window.requestAnimationFrame(playGame);
 }
 
 function pressOn(e){
