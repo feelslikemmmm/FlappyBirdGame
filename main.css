@@ -14,9 +14,9 @@ body{
 
 .main{
     position: absolute;
-    top: 40%;
+    top: 25%;
     left: 50%;
-    width: 200px;
+    width: 320px;
     margin-left: -100px;
 }
 
@@ -25,6 +25,7 @@ body{
     justify-content: center;
     align-items: center;
     color: white;
+    font-size: 4rem;
 }
 
 .gameArea{
@@ -39,8 +40,8 @@ body{
     left: 50%;
     top: 50%;
     background-color: red;
-    width: 200px;
-    margin-left: -100px;
+    width: 300px;
+    margin-left: -150px;
     color: white;
     font-size: 20px;
     border: 1px solid black;
@@ -98,4 +99,9 @@ body{
     border-radius: 20px;
     color: white;
     text-align: center;
+}
+
+.pipe{
+    position: absolute;
+    width: 100px;
 }

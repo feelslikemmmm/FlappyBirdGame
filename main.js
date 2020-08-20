@@ -26,6 +26,13 @@ let player = {
     inplay: false
 };
 
+let pipe = {
+    startPos : 0,
+    spaceBetweenRow: 0,
+    spaceBetweenCol: 0,
+    pipeCount: 0
+};
+
 
 function start(){
     player.inplay = true;
@@ -44,8 +51,43 @@ function start(){
     gameArea.appendChild(bird);
     player.x = bird.offsetLeft;
     player.y = bird.offsetTop;
+
+    pipe.startPos = 0;
+    pipe.spaceBetweenRow = 400;
+    pipe.pipeCount = Math.floor(gameArea.offsetWidth / pipe.spaceBetweenRow);
+
+    for(let i = 0; i < pipe.pipeCount; i++){
+        makePipe(pipe.startPos * pipe.spaceBetweenRow);
+        pipe.startPos++;
+    }
     window.requestAnimationFrame(playGame);
     playSound(bgSound);
+}
+
+function makePipe(pipePos){
+    let totalHiget = gameArea.offsetHeight;
+    let totalWidth = gameArea.offsetWidth;
+    
+    let pipeUp = document.createElement('div');
+    pipeUp.classList.add('pipe');
+    pipeUp.height = Math.floor( Math.random() * 350 );
+    pipeUp.style.height = pipeUp.height + 'px';
+    pipeUp.style.left = totalWidth + pipePos + 'px';
+    pipeUp.x = totalWidth + pipePos;
+    pipeUp.style.top = "0px";
+    pipeUp.style.backgroundColor = 'red';
+    gameArea.appendChild(pipeUp);
+
+    pipe.spaceBetweenCol = Math.floor( Math.random() * 250 ) + 150;
+
+    let pipeDown = document.createElement('div');
+    pipeDown.classList.add('pipe');
+    pipeDown.style.height = totalHiget - pipeUp.height - pipe.spaceBetweenCol + 'px';
+    pipeDown.style.left = totalWidth + pipePos + 'px';
+    pipeDown.x = totalWidth + pipePos;
+    pipeDown.style.bottom = "0px";
+    pipeDown.style.backgroundColor = 'black';
+    gameArea.appendChild(pipeDown);
 }
 
 function playGame(){
