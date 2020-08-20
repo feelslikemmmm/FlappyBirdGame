@@ -90,26 +90,43 @@ function makePipe(pipePos){
     gameArea.appendChild(pipeDown);
 }
 
-function movePipes(){
+function movePipes(bird){
     let pipes = document.querySelectorAll('.pipe');
     let counter = 0;
     pipes.forEach(function(item){
         item.x -= player.speed;
         item.style.left = item.x + 'px';
-        if(item.x < 0){
+        if (item.x < 0){
             item.parentElement.removeChild(item);
             counter++;
         }
+        if (isCollide(item,bird)){
+            playGameOver(bird);
+        }
     });
+
+
+
     for(let i = 0; i < counter / 2; i++){
         makePipe(0);
     }
+}
+
+function isCollide(pipe, bird){
+    let pipeRect = pipe.getBoundingClientRect();
+    let birdRect = bird.getBoundingClientRect();
+    return(
+        pipeRect.bottom > birdRect.top &&
+        pipeRect.top < birdRect.bottom &&
+        pipeRect.left < birdRect.right &&
+        pipeRect.right > birdRect.left  
+    );
 }
 function playGame(){
     if(player.inplay == true){
         let bird = document.querySelector('.bird');
         let wing = document.querySelector('.wing');
-        movePipes();
+        movePipes(bird);
         let move = false;
         if(keys.ArrowLeft && player.x > 0){
             player.x -= player.speed;
@@ -134,7 +151,7 @@ function playGame(){
 
         player.y += player.speed * 2;
         if(player.y > gameArea.offsetHeight){
-            playGameOver();
+            playGameOver(bird);
         }
         bird.style.left = player.x +'px';
         bird.style.top = player.y +'px';
@@ -144,14 +161,15 @@ function playGame(){
     }
 }
 
-function playGameOver(){
+function playGameOver(bird){
     player.inplay = false;
     stopSound(bgSound);
     playSound(alertSound);
     gameMessage.classList.remove('hide');
     gameMessage.innerHTML = 
     `Game Over 당신의 점수는 ${player.score}점 입니다.<br>
-    다시 시작하려면 여기를 누르세요!`
+    다시 시작하려면 여기를 누르세요!`;
+    bird.setAttribute('style', 'transform:rotate(180deg)');
 }
 
 function pressOn(e){
