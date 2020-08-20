@@ -84,3 +84,18 @@ body{
     height: 50px;
     font-size: 1.5em;
 }
+
+.gameMessage{
+    position: fixed;
+    top: 100px;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    width: 400px;
+    height: 50px;
+    margin: auto;
+    background-color: #00000090;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+}
