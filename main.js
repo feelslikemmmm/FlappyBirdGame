@@ -90,10 +90,26 @@ function makePipe(pipePos){
     gameArea.appendChild(pipeDown);
 }
 
+function movePipes(){
+    let pipes = document.querySelectorAll('.pipe');
+    let counter = 0;
+    pipes.forEach(function(item){
+        item.x -= player.speed;
+        item.style.left = item.x + 'px';
+        if(item.x < 0){
+            item.parentElement.removeChild(item);
+            counter++;
+        }
+    });
+    for(let i = 0; i < counter / 2; i++){
+        makePipe(0);
+    }
+}
 function playGame(){
     if(player.inplay == true){
         let bird = document.querySelector('.bird');
         let wing = document.querySelector('.wing');
+        movePipes();
         let move = false;
         if(keys.ArrowLeft && player.x > 0){
             player.x -= player.speed;
