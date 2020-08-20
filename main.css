@@ -36,10 +36,11 @@ body{
 
 .startBtn{
     position: absolute;
-    left: 25%;
+    left: 50%;
     top: 50%;
     background-color: red;
-    width: 50%;
+    width: 200px;
+    margin-left: -100px;
     color: white;
     font-size: 20px;
     border: 1px solid black;

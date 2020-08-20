@@ -19,7 +19,7 @@ let wing = document.createElement('div');
 let player = {
     x:0, //플레이어 객체의 좌표
     y:0,
-    speed:2
+    speed:5
 };
 
 
@@ -29,6 +29,8 @@ function start(){
     mainText.classList.add('hide');
     bird.setAttribute('class', 'bird');
     wing.setAttribute('class', 'wing');
+    wing.pos = 15;
+    wing.style.top = wing.pos + "px";
     bird.appendChild(wing);
     gameArea.appendChild(bird);
     player.x = bird.offsetLeft;
@@ -37,17 +39,26 @@ function start(){
 }
 
 function playGame(){
-    if(keys.ArrowLeft){
+    let move = false;
+    if(keys.ArrowLeft && player.x > 0){
         player.x -= player.speed;
+        move = true;
     }
-    if(keys.ArrowRight){
+    if(keys.ArrowRight && player.x < gameArea.offsetWidth - bird.offsetWidth){
         player.x += player.speed;
+        move = true;
     }
-    if(keys.ArrowUp){
+    if(keys.ArrowUp && player.y > 0){
         player.y -= player.speed;
+        move = true;
     }
-    if(keys.ArrowDown){
+    if(keys.ArrowDown && player.y < gameArea.offsetHeight - bird.offsetHeight){
         player.y += player.speed;
+        move = true;
+    }
+    if(move){
+        wing.pos = wing.pos === 15 ? 25 : 15;
+        wing.style.top = wing.pos + "px";
     }
     bird.style.left = player.x +'px';
     bird.style.top = player.y +'px';
